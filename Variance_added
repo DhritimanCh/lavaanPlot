@@ -25,7 +25,7 @@ buildPaths <- function(fit, coefs = FALSE, sig = 1.00, stand = FALSE, covs = FAL
   regress <- ParTable$op == "~"
   latent <- ParTable$op == "=~"
   cov <- ParTable$op == "~~" & (ParTable$rhs %in% ParTable$lhs[latent | regress]) & (ParTable$rhs != ParTable$lhs)
-  vari<- ParTable$op == "~~" & (ParTable$rhs %in% ParTable$lhs[latent | regress]) & (ParTable$rhs == ParTable$lhs)
+  vari<- ParTable$op == "~~" & (ParTable$rhs == ParTable$lhs) & (ParTable$se!=0)
 
   zval_reg <- ParTableAlt$est[regress] / ParTableAlt$se[regress]
   pval_reg <- (1 - stats::pnorm(abs(zval_reg))) * 2
